@@ -1,4 +1,4 @@
-# 1/usr/bin/env python3
+#!/usr/bin/env python3
 """ Filter Logger Module """
 import logging
 import re
@@ -20,7 +20,7 @@ def filter_datum(fields: str, redaction: str, message: str, separator: str) -> s
     """
     pattern = re.compile(
         rf'({"|".join(f"{field}=[^ {separator}]+" for field in fields)})')
-    return pattern.sub(lambda m: f" {m.group(0).split('=')[0]}={redaction}", message)
+    return pattern.sub(lambda m: f"{m.group(0).split('=')[0]}={redaction}", message)
 
 
 class RedactingFormatter(logging.Formatter):
