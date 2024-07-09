@@ -36,3 +36,15 @@ def unauthorized() -> str:
         - a message in the body: Unauthorized
     """
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def forbidden() -> str:
+    """
+      GET /api/v1/forbidden
+
+      Return:
+        - 403 status code
+        - a message in the body: Forbidden
+    """
+    abort(403)
