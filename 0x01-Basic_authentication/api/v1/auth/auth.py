@@ -3,12 +3,14 @@
 from flask import request
 from typing import TypeVar
 
+
 class Auth:
     """ Auth class """
+
     def require_auth(self, path: str, excluded_paths: list = []) -> bool:
         """ Require auth """
         return False
-    
+
     def authorization_header(self, request=None) -> str:
         """ Authorization header """
         return None
@@ -16,10 +18,3 @@ class Auth:
     def current_user(self, request=None) -> TypeVar:
         """ Current user """
         return None
-    
-
-a = Auth()
-
-print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
-print(a.authorization_header())
-print(a.current_user())
