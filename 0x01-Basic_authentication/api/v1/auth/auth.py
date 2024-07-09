@@ -9,6 +9,12 @@ class Auth:
 
     def require_auth(self, path: str, excluded_paths: list = []) -> bool:
         """ Require auth """
+        if path not in excluded_paths:
+            return True
+        if path is None:
+            return True
+        if excluded_paths is None or excluded_paths == []:
+            return True
         return False
 
     def authorization_header(self, request=None) -> str:
@@ -18,3 +24,14 @@ class Auth:
     def current_user(self, request=None) -> TypeVar:
         """ Current user """
         return None
+
+
+a = Auth()
+
+print(a.require_auth(None, None))
+print(a.require_auth(None, []))
+print(a.require_auth("/api/v1/status/", []))
+print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/status", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/users", ["/api/v1/status/", "/api/v1/stats"]))
