@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ Auth Module """
 from flask import request
-from typing import TypeVar
 
 class Auth:
     """ Auth class """
@@ -13,7 +12,7 @@ class Auth:
         """ Authorization header """
         return None
 
-    def current_user(self, request=None) -> TypeVar['User']:
+    def current_user(self, request=None):
         """ Current user """
         return None
     
