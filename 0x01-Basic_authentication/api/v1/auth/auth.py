@@ -32,14 +32,3 @@ class Auth:
     def current_user(self, request=None) -> TypeVar:
         """ Current user """
         return None
-
-
-a = Auth()
-
-print(a.require_auth(None, None))
-print(a.require_auth(None, []))
-print(a.require_auth("/api/v1/status/", []))
-print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
-print(a.require_auth("/api/v1/status", ["/api/v1/status/"]))
-print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
-print(a.require_auth("/api/v1/users", ["/api/v1/status/", "/api/v1/stats"]))
