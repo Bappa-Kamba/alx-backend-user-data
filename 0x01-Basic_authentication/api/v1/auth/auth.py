@@ -19,8 +19,6 @@ class Auth:
             path += '/'
         # Check if the path is in the list of excluded paths
         for excluded_path in excluded_paths:
-            print(excluded_path)
-            print(path)
             if excluded_path.endswith('/') and path == excluded_path:
                 return False
         return True
