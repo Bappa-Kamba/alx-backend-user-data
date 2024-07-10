@@ -46,21 +46,12 @@ class BasicAuth(Auth):
     ) -> Tuple[str, str]:
         """ Extracts user credentials from decoded base64 authorization header """
         if not decoded_base64_authorization_header or \
-            type(decoded_base64_authorization_header) != str:
+                type(decoded_base64_authorization_header) != str:
             return (None, None)
-        
+
         colon_idx = decoded_base64_authorization_header.find(':')
-        
+
         if colon_idx > 0:
             return tuple(decoded_base64_authorization_header.split(':'))
         else:
             return (None, None)
-        
-
-a = BasicAuth()
-
-print(a.extract_user_credentials(None))
-print(a.extract_user_credentials(89))
-print(a.extract_user_credentials("Holberton School"))
-print(a.extract_user_credentials("Holberton:School"))
-print(a.extract_user_credentials("bob@gmail.com:toto1234"))
