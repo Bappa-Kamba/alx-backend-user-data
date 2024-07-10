@@ -51,10 +51,10 @@ class BasicAuth(Auth):
         
         colon_idx = decoded_base64_authorization_header.find(':')
         
-        if not colon_idx:
-            return (None, None)
-        else:
+        if colon_idx > 0:
             return tuple(decoded_base64_authorization_header.split(':'))
+        else:
+            return (None, None)
         
 
 a = BasicAuth()
