@@ -38,3 +38,28 @@ class BasicAuth(Auth):
             return None
 
         return decoded_str.decode('UTF-8')
+
+    def extract_user_credentials(
+            self,
+            decoded_base64_authorization_header: str
+    ) -> tuple[str, str]:
+        """ Extracts user credentials from decoded base64 authorization header """
+        if not decoded_base64_authorization_header or \
+            type(decoded_base64_authorization_header) != str:
+            return (None, None)
+        
+        colon_idx = decoded_base64_authorization_header.find(':')
+        
+        if not colon_idx:
+            return (None, None)
+        else:
+            return tuple(decoded_base64_authorization_header.split(':'))
+        
+
+a = BasicAuth()
+
+print(a.extract_user_credentials(None))
+print(a.extract_user_credentials(89))
+print(a.extract_user_credentials("Holberton School"))
+print(a.extract_user_credentials("Holberton:School"))
+print(a.extract_user_credentials("bob@gmail.com:toto1234"))
