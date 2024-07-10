@@ -25,10 +25,21 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """ Authorization header """
-        if request is None :
+        if request is None:
             return None
         return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar:
         """ Current user """
         return None
+
+
+a = Auth()
+
+print(a.require_auth(None, None))
+print(a.require_auth(None, []))
+print(a.require_auth("/api/v1/status/", []))
+print(a.require_auth("/api/v1/status/", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/status", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/users", ["/api/v1/status/"]))
+print(a.require_auth("/api/v1/users", ["/api/v1/status/", "/api/v1/stats"]))
