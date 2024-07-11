@@ -79,3 +79,41 @@ class BasicAuth(Auth):
         if not user.is_valid_password(user_pwd):
             return None
         return user
+
+    def current_user(self, request=None) -> User:
+        """
+            Returns current user object
+        """
+        if request:
+            auth_header = self.authorization_header(request)
+            if not auth_header:
+                return None
+            base64_part = self.extract_base64_authorization_header(auth_header)
+            if not base64_part:
+                return None
+            decoded_base64 = self.decode_base64_authorization_header(
+                base64_part)
+            if not decoded_base64:
+                return None
+            user_email, user_pwd = self.extract_user_credentials(
+                decoded_base64)
+            if not (user_email or user_pwd):
+                return None
+            user = self.user_object_from_credentials(user_email, user_pwd)
+            if not user:
+                return None
+            return user
+
+
+""" Create a user test """
+user_email = "bob@hbtn.io"
+user_clear_pwd = "H0lbertonSchool98!"
+user = User()
+user.email = user_email
+user.password = user_clear_pwd
+print("New user: {} / {}".format(user.id, user.display_name()))
+user.save()
+
+basic_clear = "{}:{}".format(user_email, user_clear_pwd)
+print("Basic Base64: {}".format(base64.b64encode(
+    basic_clear.encode('utf-8')).decode("utf-8")))
