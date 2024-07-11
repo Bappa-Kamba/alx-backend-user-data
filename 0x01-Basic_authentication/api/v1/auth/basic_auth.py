@@ -61,7 +61,7 @@ class BasicAuth(Auth):
             self,
             user_email: str,
             user_pwd: str
-    ) -> TypeVar['User']:
+    ) -> User:
         """ Creates user object from user credentials """
         from models.user import User
         if user_email is None or type(user_email) != str:
