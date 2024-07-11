@@ -45,7 +45,9 @@ class BasicAuth(Auth):
             self,
             decoded_base64_authorization_header: str
     ) -> Tuple[str, str]:
-        """ Extracts user credentials from decoded base64 authorization header """
+        """
+            Extracts user credentials from decoded base64 authorization header
+        """
         if not decoded_base64_authorization_header or \
                 type(decoded_base64_authorization_header) != str:
             return (None, None)
