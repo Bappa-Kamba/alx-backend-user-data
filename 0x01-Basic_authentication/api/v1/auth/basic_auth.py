@@ -65,12 +65,13 @@ class BasicAuth(Auth):
             user_pwd: str
     ) -> User:
         """ Creates user object from user credentials """
+        u = User()
         if user_email is None or type(user_email) != str:
             return None
 
         if user_pwd is None or type(user_pwd) != str:
             return None
-        curr_user = User.search({"email": user_email})
+        curr_user = u.search({"email": user_email})
         if not curr_user or len(curr_user) == 0:
             return None
         user = curr_user[0]
