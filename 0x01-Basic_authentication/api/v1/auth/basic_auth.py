@@ -77,7 +77,7 @@ class BasicAuth(Auth):
 
         if not valid_password:
             return None
-        return curr_user
+        return curr_user[0]
 
 import uuid
 from models.user import User
