@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """ Basic Auth Module """
-import uuid
 from api.v1.auth.auth import Auth
 import base64
 from typing import Tuple
@@ -82,25 +81,7 @@ class BasicAuth(Auth):
         return curr_user[0]
 
 
-user_email = str(uuid.uuid4())
-user_clear_pwd = str(uuid.uuid4())
-user = User()
-user.email = user_email
-user.first_name = "Bob"
-user.last_name = "Dylan"
-user.password = user_clear_pwd
-print("New user: {}".format(user.display_name()))
-user.save()
 # ba = BasicAuth()
 # res = ba.user_object_from_credentials("u1@gmail.com", "pwd")
 # if res is not None:
 #     print("user_object_from_credentials must return None if 'user_email' is not linked to any user")
-a = BasicAuth()
-
-
-u = a.user_object_from_credentials("u1@gmail.com", "pwd")
-print(u.display_name() if u is not None else "None")
-
-
-u = a.user_object_from_credentials(user_email, user_clear_pwd)
-print(u.display_name() if u is not None else "None")
