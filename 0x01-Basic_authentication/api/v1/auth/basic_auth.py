@@ -2,7 +2,9 @@
 """ Basic Auth Module """
 from api.v1.auth.auth import Auth
 import base64
-from typing import Tuple, TypeVar
+from typing import Tuple
+from models.user import User
+
 
 
 
@@ -63,7 +65,6 @@ class BasicAuth(Auth):
             user_pwd: str
     ) -> User:
         """ Creates user object from user credentials """
-        from models.user import User
         if user_email is None or type(user_email) != str:
             return None
         
