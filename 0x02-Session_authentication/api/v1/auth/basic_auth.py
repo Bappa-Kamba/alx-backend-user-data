@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Basic Auth Module """
-from api.v1.auth.auth import Auth
+froAuthm api.v1.auth.auth import 
 import base64
 from typing import Tuple
 from models.user import User
