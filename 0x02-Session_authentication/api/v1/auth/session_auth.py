@@ -41,7 +41,8 @@ class SessionAuth(Auth):
             Args:
                 request (request): request object
             Returns:
-                response (response): response object
+                bool: True if the session was successfully destroyed,
+                    False otherwise
         """
         if not request:
             return False
@@ -51,5 +52,5 @@ class SessionAuth(Auth):
         user_id = self.user_id_for_session_id(sess_id)
         if not user_id:
             return False
-        del self.user_id_by_session_id[user_id]
+        del self.user_id_by_session_id[sess_id]
         return True
