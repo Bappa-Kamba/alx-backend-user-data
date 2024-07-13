@@ -19,7 +19,7 @@ SESSION_NAME = getenv('SESSION_NAME')
 )
 def login():
     """
-        POST /auth_session/login 
+        POST /auth_session/login
 
         JSON body:
             - email
