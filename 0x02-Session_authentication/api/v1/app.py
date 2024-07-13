@@ -37,7 +37,7 @@ def before_request():
             ]
         ):
             if not (
-                auth.authorization_header(request) or \
+                auth.authorization_header(request) or
                 auth.session_cookie(request)
             ):
                 abort(401)
