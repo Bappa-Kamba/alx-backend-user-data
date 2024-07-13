@@ -66,6 +66,14 @@ def login():
     strict_slashes=False
 )
 def logout():
+    """
+    DELETE /api/v1/auth_session/logout
+
+    Return:
+        - Empty JSON dictionary with status code 200
+            if session is successfully destroyed
+        - 404 error if session destruction fails
+    """
     from api.v1.app import auth
     if not auth.destroy_session(request):
         abort(404)
