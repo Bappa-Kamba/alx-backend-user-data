@@ -31,6 +31,6 @@ class SessionAuth(Auth):
         """ Returns a Request user ID """
         session_name = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_name)
-        if user_id:
-            return User.get(user_id)
-        return None
+        if not user_id:
+            return None
+        return User.get(user_id)
