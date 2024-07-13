@@ -13,7 +13,10 @@ from models.user import User
 SESSION_NAME = getenv('SESSION_NAME')
 
 
-@app_views.route('/auth_session/login', methods=["POST"], strict_slashes=False)
+@app_views.route(
+    '/auth_session/login', methods=["POST"],
+    strict_slashes=False
+)
 def login():
     """
         POST /auth_session/login 
