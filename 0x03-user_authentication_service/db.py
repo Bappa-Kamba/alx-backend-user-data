@@ -3,7 +3,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError, NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import User, Base
 
 
@@ -58,6 +59,6 @@ class DB:
         try:
             return self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
-            raise NoResultFound('Not found')
+            raise NoResultFound()
         except InvalidRequestError:
-            raise InvalidRequestError('Invalid')
+            raise InvalidRequestError()
