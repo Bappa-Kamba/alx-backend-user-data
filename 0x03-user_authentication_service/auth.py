@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """ Authorization Module"""
 import bcrypt
-from typing import ByteString
 
 
-def _hash_password(password: str) -> ByteString:
+def _hash_password(password: str):
     """
         Method to hash password string
 
