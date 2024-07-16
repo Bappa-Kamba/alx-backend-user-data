@@ -50,7 +50,7 @@ class DB:
                 kwargs: The key word arguments
 
             Returns:
-            The first user found that matches the criteria.
+                The first user found that matches the criteria.
 
             Raises:
                 NoResultFound: If no user is found with the given criteria.
