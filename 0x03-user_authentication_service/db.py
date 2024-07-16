@@ -79,8 +79,9 @@ class DB:
             for attr, value in kwargs.items():
                 if hasattr(user, attr):
                     setattr(user, attr, value)
+                else:
+                    raise ValueError("Invalid value for attribute")
             self._session.commit()
             return None
-        except ValueError:
+        except:
             self._session.rollback()
-            raise ValueError("Invalid value for attribute")
