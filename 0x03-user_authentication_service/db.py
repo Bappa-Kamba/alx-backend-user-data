@@ -62,3 +62,41 @@ class DB:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
+
+    def update_user(self, user_id, **kwargs):
+        """
+            Updates a user by id
+
+            Args:
+                user_id: The id of the user to update
+                kwargs: The key word arguments to update the user with
+
+            Returns:
+                The updated user
+        """
+        try:
+            user = self.find_user_by(id=user_id)
+            for attr, value in kwargs.items():
+                if hasattr(user, attr):
+                    setattr(user, attr, value)
+            self._session.commit()
+            return user
+        except ValueError:
+            self._session.rollback()
+            raise ValueError("Invalid value for attribute")
+                
+
+
+my_db = DB()
+
+email = 'test@test.com'
+hashed_password = "hashedPwd"
+
+user = my_db.add_user(email, hashed_password)
+print(user.id)
+
+try:
+    my_db.update_user(user.id, hashed_password='NewPwd')
+    print("Password updated")
+except ValueError:
+    print("Error")
