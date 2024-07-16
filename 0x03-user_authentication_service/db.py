@@ -63,7 +63,7 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError()
 
-    def update_user(self, user_id, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
             Updates a user by id
 
@@ -72,7 +72,10 @@ class DB:
                 kwargs: The key word arguments to update the user with
 
             Returns:
-                The updated user
+                None
+
+            Raises:
+                ValueError: If an invalid attribute is passed
         """
         try:
             user = self.find_user_by(id=user_id)
@@ -80,8 +83,7 @@ class DB:
                 if hasattr(user, attr):
                     setattr(user, attr, value)
                 else:
-                    raise ValueError("Invalid value for attribute")
+                    raise ValueError(f"Invalid attribute: {attr}")
             self._session.commit()
-            return None
         except:
             self._session.rollback()
