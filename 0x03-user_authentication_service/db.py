@@ -42,7 +42,7 @@ class DB:
 
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """
             Finds a user by key word arguments
 

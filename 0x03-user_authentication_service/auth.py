@@ -1,16 +1,37 @@
 #!/usr/bin/env python3
 """ Authorization Module"""
 import bcrypt
+from db import DB
+from user import User
 
 
-def _hash_password(password: str):
+class Auth:
+    """Auth class to interact with the authentication database.
     """
-        Method to hash password string
 
-        Args:
-            password: the password string to hash
+    def __init__(self):
+        self._db = DB()
 
-        Returns:
-            a byte string - a salted hash password of `password`
-    """
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    def _hash_password(self, password: str):
+        """
+            Method to hash password string
+
+            Args:
+                password: the password string to hash
+
+            Returns:
+                a byte string - a salted hash password of `password`
+        """
+        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+    def register_user(self, email: str, password: str) -> User:
+        """
+            Method to register a user in the database
+
+            Args:
+                email: the email of the user
+                password: the password of the user
+
+            Returns:
+                the user
+        """
