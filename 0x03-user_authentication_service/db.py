@@ -6,7 +6,6 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from user import User, Base
-from typing import Any
 
 
 class DB:
@@ -21,7 +20,8 @@ class DB:
 
     @property
     def _session(self) -> Session:
-        """Memoized session object
+        """
+        Memoized session object
         """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
@@ -64,7 +64,7 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError()
 
-    def update_user(self, user_id: int, **kwargs: Any) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
             Updates a user by id
 
