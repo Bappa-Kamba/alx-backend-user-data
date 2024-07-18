@@ -9,7 +9,7 @@ class Auth:
     """Auth class to interact with the authentication database.
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         self._db = DB()
 
     def _hash_password(self, password: str) -> bytes:
