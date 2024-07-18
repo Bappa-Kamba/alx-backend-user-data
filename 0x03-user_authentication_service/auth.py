@@ -9,10 +9,10 @@ class Auth:
     """Auth class to interact with the authentication database.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._db = DB()
 
-    def _hash_password(self, password: str):
+    def _hash_password(self, password: str) -> bytes:
         """
             Method to hash password string
 
@@ -35,3 +35,25 @@ class Auth:
             Returns:
                 the user
         """
+        if not self._db.find_user_by(email=email):
+            hashed_password = self._hash_password(password)
+            return self._db.add_user(email, hashed_password)
+        raise ValueError(f"User {email} exists")
+
+
+email = 'me@me.com'
+password = 'mySecuredPwd'
+
+auth = Auth()
+
+try:
+    user = auth.register_user(email, password)
+    print("successfully created a new user!")
+except ValueError as err:
+    print("could not create a new user: {}".format(err))
+
+try:
+    user = auth.register_user(email, password)
+    print("successfully created a new user!")
+except ValueError as err:
+    print("could not create a new user: {}".format(err))
