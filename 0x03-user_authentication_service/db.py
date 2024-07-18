@@ -6,6 +6,7 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from user import User, Base
+from typing import Any
 
 
 class DB:
@@ -63,7 +64,7 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError()
 
-    def update_user(self, user_id: int, **kwargs):
+    def update_user(self, user_id: int, **kwargs: Any) -> None:
         """
             Updates a user by id
 
