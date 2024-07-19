@@ -44,7 +44,7 @@ class Auth:
             hashed_password = _hash_password(password)
             new_user = self._db.add_user(email, hashed_password)
             return new_user
-        
+
     def valid_login(self, email: str, password: str) -> bool:
         """
             Method to validate a user login
@@ -61,16 +61,3 @@ class Auth:
             return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
         except NoResultFound:
             return False
-        
-
-email = 'bob@bob.com'
-password = 'MyPwdOfBob'
-auth = Auth()
-
-auth.register_user(email, password)
-
-print(auth.valid_login(email, password))
-
-print(auth.valid_login(email, "WrongPwd"))
-
-print(auth.valid_login("unknown@email", password))
