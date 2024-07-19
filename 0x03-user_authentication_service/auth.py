@@ -142,7 +142,7 @@ class Auth:
             reset_token = _generate_uuid()
             self._db.update_user(user.id, reset_token=reset_token)
         except NoResultFound:
-            raise NoResultFound('No user found')
+            raise ValueError('No user found')
         except ValueError:
             raise ValueError('Invalid attribute')
         else:
