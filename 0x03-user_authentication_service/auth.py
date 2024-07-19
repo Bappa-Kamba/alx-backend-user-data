@@ -59,3 +59,16 @@ class Auth:
         user = self._db.find_user_by(email)
         if user:
             return bcrypt.checkpw(password, user.hashed_password)
+        
+
+email = 'bob@bob.com'
+password = 'MyPwdOfBob'
+auth = Auth()
+
+auth.register_user(email, password)
+
+print(auth.valid_login(email, password))
+
+print(auth.valid_login(email, "WrongPwd"))
+
+print(auth.valid_login("unknown@email", password))
