@@ -85,8 +85,5 @@ class DB:
                     setattr(user, attr, value)
                 else:
                     raise ValueError(f'Invalid attribute {attr}')
-        except ValueError as e:
-            self._session.rollback()
-            print(e)
-        else:
-            self._session.commit()
+        except ValueError:
+            self.__session.rollback()
