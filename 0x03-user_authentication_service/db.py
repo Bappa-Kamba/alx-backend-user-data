@@ -86,6 +86,5 @@ class DB:
                 else:
                     raise ValueError(f"Invalid attribute: {attr}")
             self._session.commit()
-        except Exception:
+        except ValueError:
             self._session.rollback()
-            raise Exception('An error occured')
