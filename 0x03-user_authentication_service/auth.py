@@ -137,13 +137,13 @@ class Auth:
             Returns:
                 token: the reset password token
         """
-        user = self._db.find_user_by(email=email)
-        if not user:
-            raise ValueError('Invalid user email.')
-        reset_token = _generate_uuid()
         try:
+            user = self._db.find_user_by(email=email)
+            reset_token = _generate_uuid()
             self._db.update_user(user.id, reset_token=reset_token)
         except ValueError:
             raise ValueError('Invalid attribute')
+        except NoResultFound:
+            raise NoResultFound('No user found')
         else:
             return reset_token
