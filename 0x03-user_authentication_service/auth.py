@@ -20,14 +20,14 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
-def _generate_uuid(self) -> str:
+def _generate_uuid() -> str:
     """
             Method to generate a UUID for a user
 
             Returns:
                 the UUID string
         """
-    return uuid.uuid4()
+    return str(uuid.uuid4())
 
 
 class Auth:
