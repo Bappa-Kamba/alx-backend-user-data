@@ -6,7 +6,7 @@ from user import User
 from sqlalchemy.orm.exc import NoResultFound
 
 
-def _hash_password(self, password: str):
+def _hash_password(password: str) -> bytes:
     """
             Method to hash password string
 
