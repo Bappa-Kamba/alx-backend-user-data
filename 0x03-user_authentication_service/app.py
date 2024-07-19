@@ -71,5 +71,17 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/reset_password', methods=["POST"])
+def get_reset_password_token():
+    """ get reset password token """
+    email = request.form.get('email')
+    token = AUTH.get_reset_password_token(email)
+    if not token:
+        abort(403)
+    return jsonify({
+        "email": f"{email}", "reset_token": f"{token}"
+    }), 200
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
