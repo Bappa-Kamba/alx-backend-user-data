@@ -143,5 +143,4 @@ class Auth:
             self._db.update_user(user.id, reset_token=reset_token)
         except NoResultFound:
             raise ValueError('No user found') from NoResultFound
-        else:
-            return reset_token
+        return reset_token
