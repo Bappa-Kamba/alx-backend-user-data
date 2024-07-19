@@ -9,7 +9,6 @@ from flask import (
     url_for
 )
 from auth import Auth
-from sqlalchemy.orm.exc import NoResultFound
 
 
 AUTH = Auth()
@@ -79,7 +78,7 @@ def get_reset_password_token():
     email = request.form.get('email')
     try:
         token = AUTH.get_reset_password_token(email)
-    except NoResultFound:
+    except ValueError:
         abort(403)
     else:
         return jsonify({
