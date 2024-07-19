@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Authorization Module"""
 import bcrypt
+import uuid
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
@@ -17,6 +18,16 @@ def _hash_password(password: str) -> bytes:
                 a byte string - a salted hash password of `password`
         """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+
+def _generate_uuid(self) -> str:
+    """
+            Method to generate a UUID for a user
+
+            Returns:
+                the UUID string
+        """
+    return str(uuid.uuid4())
 
 
 class Auth:
@@ -58,6 +69,9 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+            return bcrypt.checkpw(
+                password.encode('utf-8'),
+                user.hashed_password
+            )
         except NoResultFound:
             return False
