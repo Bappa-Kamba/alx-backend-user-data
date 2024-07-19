@@ -45,5 +45,3 @@ class Auth:
             new_user = self.register_user(email, hashed_password)
             return new_user
 
-auth = Auth()
-print(auth._hash_password("Hello Holberton"))
