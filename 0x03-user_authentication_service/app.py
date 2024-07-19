@@ -35,6 +35,17 @@ def users():
         }), 200
 
 
+@app.route('/profile')
+def profile():
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(403)
+    user = AUTH.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    return jsonify({"email": f"{user.email}"})
+
+
 @app.route('/sessions', methods=["POST"])
 def login():
     """ login route """
