@@ -56,10 +56,11 @@ class Auth:
             Returns:
                 True if the user is valid, False otherwise
         """
-        user = self._db.find_user_by(email=email)
-        if user:
-
+        try:
+            user = self._db.find_user_by(email=email)
             return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+        except NoResultFound:
+            return False
         
 
 email = 'bob@bob.com'
