@@ -66,17 +66,17 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """
-        Updates a user by id
+            Updates a user by id
 
-        Args:
-            user_id: The id of the user to update
-            kwargs: The key word arguments to update the user with
+            Args:
+                user_id: The id of the user to update
+                kwargs: The key word arguments to update the user with
 
-        Returns:
-            None
+            Returns:
+                None
 
-        Raises:
-            ValueError: If an invalid attribute is passed
+            Raises:
+                ValueError: If an invalid attribute is passed
         """
         try:
             user = self.find_user_by(id=user_id)
@@ -91,4 +91,4 @@ class DB:
             raise e
         except Exception as e:
             self._session.rollback()
-            raise ValueError("An error occurred while updating the user") from e
+            raise ValueError("An error occurred while updating user") from e
