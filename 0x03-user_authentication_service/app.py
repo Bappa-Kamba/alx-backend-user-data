@@ -38,6 +38,7 @@ def users():
 
 @app.route('/profile')
 def profile():
+    """ profile route """
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(403)
