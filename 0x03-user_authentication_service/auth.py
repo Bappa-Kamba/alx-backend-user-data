@@ -161,6 +161,6 @@ class Auth:
                 reset_token=None
             )
         except ValueError:
-            raise ValueError('Invalid argument')
+            raise ValueError from ValueError
         except NoResultFound:
             raise ValueError('No user found')
