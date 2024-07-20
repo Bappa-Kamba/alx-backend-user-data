@@ -160,7 +160,5 @@ class Auth:
                 user.id, password=hashed_password,
                 reset_token=None
             )
-        except ValueError:
-            raise ValueError('Invalid attribute') from ValueError
         except NoResultFound:
             raise ValueError('No user found')
