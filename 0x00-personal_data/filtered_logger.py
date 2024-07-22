@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """ Filter Logger Module """
 import re
+from typing import List
 
 
 def filter_datum(
-        fields: list,
+        fields: List[str],
         redaction: str,
         message: str,
         separator: str
