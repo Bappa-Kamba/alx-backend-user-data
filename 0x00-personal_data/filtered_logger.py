@@ -2,7 +2,9 @@
 """ Filter Logger Module """
 import logging
 import re
-from typing import List
+from typing import List, Tuple
+
+PII_FIELDS: Tuple[str, ...] = ('phone', 'ssn', 'password', 'ip', 'user_agent')
 
 
 def filter_datum(
@@ -28,6 +30,25 @@ def filter_datum(
         lambda m: f"{m.group(0).split('=')[0]}={redaction}",
         message
     )
+
+
+def get_logger() -> logging.Logger:
+    """
+        Create and configure a logger.
+
+        Returns:
+            logging.Logger: Configured logger named 'user_data'
+    """
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
+
+    logger.addHandler(stream_handler)
+
+    return logger
 
 
 class RedactingFormatter(logging.Formatter):
