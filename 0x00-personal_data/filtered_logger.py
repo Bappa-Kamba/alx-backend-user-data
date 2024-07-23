@@ -3,9 +3,9 @@
 import logging
 import re
 import os
+import bcrypt
 from typing import List, Tuple
-import mysql
-import mysql.connector
+from mysql.connector.connection import MySQLConnection
 PII_FIELDS: Tuple[str, ...] = ('name', 'email', 'phone', 'ssn', 'password')
 
 
@@ -53,7 +53,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> MySQLConnection:
     """
     Create and configure a database connection.
     Returns:
@@ -95,6 +95,16 @@ def main() -> None:
 
     cursor.close()
     db.close()
+
+
+def hash_password(password: str) -> bytes:
+    """ Hash a password using the SHA-256 algorithm. """
+    hashed_password = bcrypt.hashpw(
+        password.encode('utf-8'),
+        bcrypt.gensalt()
+    )
+
+    return hashed_password
 
 
 class RedactingFormatter(logging.Formatter):
