@@ -73,6 +73,30 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return db
 
 
+def main() -> None:
+    """ Main function """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users;")
+    rows = cursor.fetchall()
+    logger = get_logger()
+
+    columns = [
+        "name", "email", "phone", "ssn", "password",
+        "ip", "last_login", "user_agent"
+    ]
+
+    for row in rows:
+        # Combine the column names and row values into a log message
+        message = "; ".join(f"{column}={value}" for column,
+                            value in zip(columns, row)) + ";"
+        # Log the message
+        logger.info(message)
+
+    cursor.close()
+    db.close()
+
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
@@ -94,3 +118,7 @@ class RedactingFormatter(logging.Formatter):
             original_message,
             self.SEPARATOR,
         )
+
+
+if __name__ == "__main__":
+    main()
