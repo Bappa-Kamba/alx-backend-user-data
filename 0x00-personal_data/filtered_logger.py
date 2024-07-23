@@ -7,10 +7,6 @@ from typing import List, Tuple
 import mysql
 import mysql.connector
 PII_FIELDS: Tuple[str, ...] = ('name', 'email', 'phone', 'ssn', 'password')
-DB_NAME = os.getenv('PERSONAL_DATA_DB_NAME')
-DB_USERNAME = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-DB_PASSWORD = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
-DB_HOST = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
 
 
 def filter_datum(
@@ -63,6 +59,10 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     Returns:
         mysql.connector: Configured database connection.
     """
+    DB_NAME = os.getenv('PERSONAL_DATA_DB_NAME')
+    DB_USERNAME = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    DB_PASSWORD = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    DB_HOST = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
     db = mysql.connector.connect(
         host=DB_HOST,
         user=DB_USERNAME,
