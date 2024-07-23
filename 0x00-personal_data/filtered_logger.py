@@ -2,9 +2,15 @@
 """ Filter Logger Module """
 import logging
 import re
+import os
 from typing import List, Tuple
-
+import mysql
+import mysql.connector
 PII_FIELDS: Tuple[str, ...] = ('name', 'email', 'phone', 'ssn', 'password')
+DB_NAME = os.getenv('PERSONAL_DATA_DB_NAME')
+DB_USERNAME = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+DB_PASSWORD = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+DB_HOST = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
 
 
 def filter_datum(
@@ -49,6 +55,22 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> mysql.connector:
+    """
+    Create and configure a database connection.
+    Returns:
+        mysql.connector: Configured database connection.
+    """
+    db = mysql.connector.connect(
+        host=DB_HOST,
+        user=DB_USERNAME,
+        password=DB_PASSWORD,
+        database=DB_NAME
+    )
+
+    return db
 
 
 class RedactingFormatter(logging.Formatter):
